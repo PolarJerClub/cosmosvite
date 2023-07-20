@@ -10,13 +10,20 @@ import { Drawer as MUIDrawer,
     Divider,
     Button,
     CssBaseline,
-    Box
+    Box,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
     } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ChevronRight, ChevronLeft} from '@mui/icons-material'; 
 import { useNavigate } from 'react-router-dom'; 
 import { theme } from '../../Theme/themes'; 
-// come back to add Theming
+import { DataTable } from '../DataTable/DataTable';
+import { CosmoForm } from '../CosmoForm';
+
 
 const drawerWidth = 240; 
 
@@ -86,6 +93,7 @@ const myStyles = {
 export const Dashboard = () => {
     const navigate = useNavigate();
     const [ open, setOpen ] = useState(false);
+    const [ dialogOpen, setDialogOpen ] = useState(false)
 
 
     const handleDrawerOpen = () => {
@@ -94,6 +102,15 @@ export const Dashboard = () => {
 
     const handleDrawerClose = () => {
         setOpen(false)
+    }
+
+    // HANDLE DIALOG BOX OPEN
+    const handleDialogOpen = () => {
+        setDialogOpen(true)
+    }
+
+    const handleDialogClose = () => {
+        setDialogOpen(false)
     }
 
     const itemsList = [
@@ -124,7 +141,18 @@ export const Dashboard = () => {
                     <MenuIcon /> 
                 </IconButton>
                 <Typography variant='h6' noWrap> Dashboard</Typography>
-                <Button sx={ myStyles.toolbarButton }> Create a Planet </Button>
+                <Button onClick={ handleDialogOpen } sx={ myStyles.toolbarButton }> Create a Planet </Button>
+                {/* Create drone dialog popup */}
+                <Dialog open={ dialogOpen } onClose={ handleDialogClose } aria-labelledby='form-dialog-title'>
+                    <DialogTitle id="form-dialog-title">Add New Planet</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>Enter Planet Info Here (づ￣ 3￣)づ</DialogContentText>
+                        <CosmoForm/>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleDialogClose} sx={{ backgroundColor: 'pink'}} color='error'>Cancel</Button>
+                    </DialogActions>
+                </Dialog>
             </Toolbar>
         </AppBar>
         <MUIDrawer
@@ -153,8 +181,8 @@ export const Dashboard = () => {
         </MUIDrawer>
         <Box sx={ myStyles.content } >
             <Box sx={ myStyles.drawerHeader} />
-            <Typography variant='h1'>Hello World Until Data Shows Up</Typography>
-            {/* <DataTable /> */}
+            <Typography variant='h6'>Cosmos Data</Typography>
+            <DataTable />
         </Box>
        </Box>
     )

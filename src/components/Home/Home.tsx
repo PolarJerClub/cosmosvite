@@ -3,6 +3,7 @@ import React from 'react';
 import {styled} from '@mui/system';
 import {Button} from '@mui/material';
 import {Link} from 'react-router-dom';
+import {signOut } from 'firebase/auth'
 
 // INTERNAL IMPORTS
 import space_image from '../../assets/images/space.avif';
@@ -68,26 +69,30 @@ const MainText = styled('div')({
 })
 
 export const Home = (props: Props) => {
-    
+    const myAuth = localStorage.getItem('myAuth')
     return (
         <Root>
             <NavBarContainer>
-                <Logo>
-                    <LogoA to='/'>Cosmos</LogoA>
-                </Logo>
-                <LogoNavigation>
-                    <li>
-                        <NavA to='/'>Home</NavA>
-                    </li>
-                    <li>
-                        <NavA to='/dashboard'>Dashboard</NavA>
-                    </li>
-                    <li>
-                        <NavA to='/signin'>Sign In</NavA>
-                    </li>
-                    <li>
-                        <NavA to='/signin'>Sign Up</NavA>
-                    </li>
+            <Logo>
+                        <LogoA to="/">Drones</LogoA>
+                    </Logo>
+                    <LogoNavigation>
+                        <li>
+                            <NavA to='/'>Home</NavA>
+                        </li>
+                            {myAuth === 'true' ? 
+                            <><li>
+                            <NavA to='/dashboard'>Dashboard</NavA>
+                        </li><li>
+                                <NavA to='/signin'>Sign Out</NavA>
+                            </li></>
+                            :
+                            <><li>
+                            <NavA to='/signin'>Sign In</NavA>
+                            </li><li>
+                                <NavA to='/signup'>Sign Up</NavA>
+                            </li></>
+                    } 
                 </LogoNavigation>
 
             </NavBarContainer>
