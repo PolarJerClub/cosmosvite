@@ -4,6 +4,7 @@ import {styled} from '@mui/system';
 import {Button} from '@mui/material';
 import {Link} from 'react-router-dom';
 import {signOut } from 'firebase/auth'
+import {VirtualAssistant} from '../Jokes';
 
 // INTERNAL IMPORTS
 import space_image from '../../assets/images/space.avif';
@@ -22,7 +23,7 @@ const Root = styled('div')({
 const NavBarContainer = styled('div')({
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
 })
 
 const Logo = styled('h1')({
@@ -74,7 +75,7 @@ export const Home = (props: Props) => {
         <Root>
             <NavBarContainer>
             <Logo>
-                        <LogoA to="/">Drones</LogoA>
+                        <LogoA to="/">Cosmos</LogoA>
                     </Logo>
                     <LogoNavigation>
                         <li>
@@ -98,10 +99,16 @@ export const Home = (props: Props) => {
             </NavBarContainer>
             <Main>
                 <MainText>
-                    <h1>{props.title}</h1>
-                    <p>Welcome to the Cosmos!!</p>
-                    <Button color='primary' variant='contained' component={Link} to='/dashboard'>See the Cosmos</Button>
+                    <div>
+                        <h1>{props.title}</h1>
+                        <p>Welcome to the Cosmos!!</p>
+                        <Button color='primary' variant='contained' component={Link} to='/dashboard'>See the Cosmos</Button>
+                    </div>
+                    <div>
+                        <VirtualAssistant />
+                    </div>
                 </MainText>
+                
             </Main>
         </Root>
     )
